@@ -36,10 +36,20 @@
                     <div class="form-body mt-4">
                         <form action="{{ route('login') }}" method="POST" class="row g-3">
                             @csrf
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                 <label for="email" class="form-label">Correo</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" autocomplete="email" autofocus placeholder="nombre@extension.com">
                                 @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div> --}}
+
+                            <div class="col-12">
+                                <label for="username" class="form-label">Usuario o Correo</label>
+                                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}" autocomplete="username" placeholder="nombre@extension.com" autofocus>
+                                @error('username')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
