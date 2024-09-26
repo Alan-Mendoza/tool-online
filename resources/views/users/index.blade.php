@@ -68,6 +68,7 @@
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
+                                <th>Id</th>
                                 <th>Nombre</th>
                                 <th>Usuario</th>
                                 <th>Correo</th>
@@ -78,6 +79,7 @@
                         <tbody>
                             @foreach ($users as $user)
                                 <tr>
+                                    <td>{{ $user->id }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->username }}</td>
                                     <td>{{ $user->email }}</td>
@@ -91,10 +93,10 @@
                                                 <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-outline-warning d-flex gap-1 button-list"><i class="material-icons-outlined">edit</i></a>
                                             </div>
                                             <div class="col">
-                                                <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" onsubmit="return confirm('¿Seguro que quiere eliminar este usuario?')">
+                                                <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" id="delete-form-{{ $user->id }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-outline-danger d-flex gap-1 button-list"><i class="material-icons-outlined">delete</i></button>
+                                                    <button type="button" class="btn btn-outline-danger d-flex gap-1 button-list" onclick="confirmDelete({{ $user->id }})"><i class="material-icons-outlined">delete</i></button>
                                                 </form>
                                             </div>
                                         </div>
@@ -116,6 +118,33 @@
         </div>
     </div>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete(userId) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Esta acción no se puede deshacer!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#2b71f9',  // Color del botón "Sí, eliminar"
+            cancelButtonColor: '#fa025a',  // Color del botón "Cancelar"
+            background: '#080b28',  // Color del fondo del modal
+            color: '#fff',  // Color del texto en el modal
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                popup: 'custom-swal-popup',  // Clase personalizada para el modal
+                confirmButton: 'custom-confirm-btn', // Clase personalizada para el botón de confirmación
+                cancelButton: 'custom-cancel-btn'   // Clase personalizada para el botón de cancelación
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, envía el formulario
+                document.getElementById('delete-form-' + userId).submit();
+            }
+        });
+    }
+</script>
 @endsection
 
 @section('data-table-users')

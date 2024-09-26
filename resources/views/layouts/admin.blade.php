@@ -649,7 +649,7 @@
 <div class="sidebar-nav">
     <!--navigation-->
     <ul class="metismenu" id="sidenav">
-        <li>
+        <li class="{{ request()->is('users*') ? 'mm-active' : '' }}">
             <a href="{{ route('users.index') }}">
                 <div class="parent-icon"><i class="material-icons-outlined">people</i>
                 </div>

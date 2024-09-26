@@ -1,4 +1,4 @@
-/* Aca se cambio el tamaño de los botones de las listas */
+/* INICIO - Aca se cambio el tamaño de los botones de las listas */
 .button-list {
     display: inline-flex;
     align-items: center;
@@ -8,3 +8,33 @@
     text-align: center;
     vertical-align: middle;
 }
+/* FIN - Aca se cambio el tamaño de los botones de las listas */
+
+/* INICIO - Aca se define los estilos de los Swalf para poder tenerlo mejor para los tipos de temas que existen */
+.custom-swal-popup {
+    border-radius: 15px;  /* Bordes redondeados */
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.6);  /* Sombra alrededor */
+    border: 2px solid #2b71f9;  /* Borde visible */
+}
+
+/* Añadiendo una sombra interna al modal para darle más profundidad */
+.custom-swal-popup::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    border-radius: 15px;
+    box-shadow: inset 0px 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Estilos para el botón de confirmación */
+.custom-confirm-btn {
+    box-shadow: 0px 4px 10px rgba(43, 113, 249, 0.5);  /* Sombra en el botón */
+}
+
+/* Estilos para el botón de cancelar */
+.custom-cancel-btn {
+    box-shadow: 0px 4px 10px rgba(250, 2, 90, 0.5);  /* Sombra en el botón */
+}
+
+/* FIN - Aca se define los estilos de los Swalf para poder tenerlo mejor para los tipos de temas que existen */
