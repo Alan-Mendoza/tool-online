@@ -43,8 +43,13 @@
                                     <div class="col-sm-9">
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="material-icons-outlined fs-5">person</i></span>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="nombre y apellido">
-                                            </div>
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="nombre y apellido">
+                                            @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 
@@ -53,8 +58,13 @@
                                     <div class="col-sm-9">
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="material-icons-outlined fs-5">laptop</i></span>
-                                            <input type="text" class="form-control" id="username" name="username" placeholder="username">
-                                            </div>
+                                            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}" placeholder="username">
+                                            @error('username')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 
@@ -63,8 +73,13 @@
                                     <div class="col-sm-9">
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="material-icons-outlined fs-5">drafts</i></span>
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="correo">
-                                            </div>
+                                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="correo">
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 
@@ -73,8 +88,13 @@
                                     <div class="col-sm-9">
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="material-icons-outlined fs-5">vpn_key</i></span>
-                                            <input type="password" class="form-control" id="password" name="password" placeholder="contraseña">
-                                            </div>
+                                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="contraseña">
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 
