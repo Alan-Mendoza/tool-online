@@ -33,6 +33,35 @@
 
         <h6 class="mb-0 text-uppercase">Lista de usuarios en sistema</h6>
         <hr>
+
+        @if(session('success'))
+            <div class="alert alert-success border-0 bg-grd-success alert-dismissible fade show">
+                <div class="d-flex align-items-center">
+                    <div class="font-35 text-white"><span class="material-icons-outlined fs-2">check_circle</span>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0 text-white">{{ session('success') }}</h6>
+                        {{-- <div class="text-white">A simple success alert—check it out!</div> --}}
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger border-0 bg-grd-danger alert-dismissible fade show">
+                <div class="d-flex align-items-center">
+                    <div class="font-35 text-white"><span class="material-icons-outlined fs-2">check_circle</span>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0 text-white">{{ session('error') }}</h6>
+                        {{-- <div class="text-white">A simple danger alert—check it out!</div> --}}
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
@@ -43,6 +72,7 @@
                                 <th>Usuario</th>
                                 <th>Correo</th>
                                 <th>Fecha de creación</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,6 +82,23 @@
                                     <td>{{ $user->username }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->created_at }}</td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-1">
+                                            <div class="col">
+                                                <a href="{{ route('users.show', ['user' => $user->id]) }}" class="btn btn-outline-primary d-flex gap-1 button-list"><i class="material-icons-outlined">visibility</i></a>
+                                            </div>
+                                            <div class="col">
+                                                <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-outline-warning d-flex gap-1 button-list"><i class="material-icons-outlined">edit</i></a>
+                                            </div>
+                                            <div class="col">
+                                                <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" onsubmit="return confirm('¿Seguro que quiere eliminar este usuario?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-outline-danger d-flex gap-1 button-list"><i class="material-icons-outlined">delete</i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -28,23 +28,43 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
     }
 
-    public function show($id)
+    public function show(User $user)
     {
-        return view('users.show');
+        return view('users.show')->with([
+            'user' => $user,
+        ]);
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
-        return view('users.edit');
+        return view('users.edit')->with([
+            'user' => $user,
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
+        $data = $request->only('name', 'username', 'email');
 
+        $password = $request->input('password');
+
+        if ($password) {
+            $data['password'] = bcrypt($password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente');
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
+        if (auth()->user()->id == $user->id) {
+            return redirect()->route('users.index')->with('error', 'No puedes eliminarte a ti mismo');
+        }
 
+        $user->delete();
+
+        return redirect()->back()->with('success', 'Usuario eliminado correctamente');
     }
 }

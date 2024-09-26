@@ -1,0 +1,10 @@
+/* Aca se cambio el tamaño de los botones de las listas */
+.button-list {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* Ajusta según el tamaño deseado */
+    height: 40px; /* Ajusta según el tamaño deseado */
+    text-align: center;
+    vertical-align: middle;
+}

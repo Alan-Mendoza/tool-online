@@ -29,6 +29,9 @@
     <link href="{{ asset('admin/sass/semi-dark.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/sass/bordered-theme.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/sass/responsive.css') }}" rel="stylesheet">
+
+    {{-- CSS Customization --}}
+    <link rel="stylesheet" href="{{ asset('admin/css/customization.css') }}">
 </head>
 
 <body>
@@ -1217,9 +1220,12 @@
 	   new PerfectScrollbar(".user-list")
   </script>
 {{-- Data Tables Inicio--}}
-    @yield('data-table-users')
+@yield('data-table-users')
 {{-- Data Tables Fin--}}
 
+{{-- Perfect Scrollbar Inicio --}}
+@yield('perfect-scrollbar-user')
+{{-- Perfect Scrollbar Fin --}}
 </body>
 
 </html>
