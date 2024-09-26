@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/plugins/simplebar/css/simplebar.css') }}">
     <!--bootstrap css-->
     <link href="{{ asset('admin/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
     <!--main css-->
@@ -646,6 +647,13 @@
     <!--navigation-->
     <ul class="metismenu" id="sidenav">
         <li>
+            <a href="{{ route('users.index') }}">
+                <div class="parent-icon"><i class="material-icons-outlined">people</i>
+                </div>
+                <div class="menu-title">Usuarios</div>
+            </a>
+        </li>
+        <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="material-icons-outlined">home</i>
             </div>
@@ -982,7 +990,7 @@
 </aside>
 <!--end sidebar-->
 
-  @yield('content')
+    @yield('content')
 
 <!--start overlay-->
     <div class="overlay btn-toggle"></div>
@@ -1208,6 +1216,9 @@
   <script>
 	   new PerfectScrollbar(".user-list")
   </script>
+{{-- Data Tables Inicio--}}
+    @yield('data-table-users')
+{{-- Data Tables Fin--}}
 
 </body>
 
