@@ -6,6 +6,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -21,6 +22,7 @@ class UserController extends Controller
     {
         return view('users.create')->with([
             'roles' => Role::all()->pluck('name', 'id'),
+            'permissions' => Permission::all()->pluck('name', 'id'),
         ]);
     }
 
@@ -31,8 +33,10 @@ class UserController extends Controller
         ]);
 
         $roles = Role::whereIn('id', $request->input('roles', []))->pluck('name')->toArray();
+        $permissions = Permission::whereIn('id', $request->input('permissions', []))->pluck('name')->toArray();
 
         $user->syncRoles($roles);
+        $user->syncPermissions($permissions);
 
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
     }
@@ -49,6 +53,7 @@ class UserController extends Controller
         return view('users.edit')->with([
             'user' => $user->load('roles'),
             'roles' => Role::all()->pluck('name', 'id'),
+            'permissions' => Permission::all()->pluck('name', 'id'),
         ]);
     }
 
@@ -65,8 +70,10 @@ class UserController extends Controller
         $user->update($data);
 
         $roles = Role::whereIn('id', $request->input('roles', []))->pluck('name')->toArray();
+        $permissions = Permission::whereIn('id', $request->input('permissions', []))->pluck('name')->toArray();
 
         $user->syncRoles($roles);
+        $user->syncPermissions($permissions);
 
         return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente');
     }

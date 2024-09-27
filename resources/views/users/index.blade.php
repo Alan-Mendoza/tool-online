@@ -73,6 +73,7 @@
                                 <th>Usuario</th>
                                 <th>Correo</th>
                                 <th>Roles</th>
+                                <th>Permisos</th>
                                 <th>Fecha de creación</th>
                                 <th>Acciones</th>
                             </tr>
@@ -89,6 +90,13 @@
                                             <span class="badge bg-grd-info">{{ $role->name }}</span>
                                         @empty
                                             <span class="badge bg-grd-danger">Sin roles</span>
+                                        @endforelse
+                                    </td>
+                                    <td>
+                                        @forelse ($user->permissions as $permission)
+                                            <span class="badge bg-grd-warning">{{ $permission->name }}</span>
+                                        @empty
+                                            <span class="badge bg-grd-danger">Sin permisos</span>
                                         @endforelse
                                     </td>
                                     <td>{{ $user->created_at }}</td>
