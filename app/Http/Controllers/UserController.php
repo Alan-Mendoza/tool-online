@@ -6,6 +6,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -18,7 +19,9 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('users.create');
+        return view('users.create')->with([
+            'roles' => Role::all()->pluck('name', 'id'),
+        ]);
     }
 
     public function store(StoreUserRequest $request)
@@ -27,20 +30,25 @@ class UserController extends Controller
             'password' => bcrypt($request->input('password'))
         ]);
 
+        $roles = Role::whereIn('id', $request->input('roles', []))->pluck('name')->toArray();
+
+        $user->syncRoles($roles);
+
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
     }
 
     public function show(User $user)
     {
         return view('users.show')->with([
-            'user' => $user,
+            'user' => $user->load('roles'),
         ]);
     }
 
     public function edit(User $user)
     {
         return view('users.edit')->with([
-            'user' => $user,
+            'user' => $user->load('roles'),
+            'roles' => Role::all()->pluck('name', 'id'),
         ]);
     }
 
@@ -55,6 +63,10 @@ class UserController extends Controller
         }
 
         $user->update($data);
+
+        $roles = Role::whereIn('id', $request->input('roles', []))->pluck('name')->toArray();
+
+        $user->syncRoles($roles);
 
         return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente');
     }

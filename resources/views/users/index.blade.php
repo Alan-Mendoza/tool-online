@@ -72,6 +72,7 @@
                                 <th>Nombre</th>
                                 <th>Usuario</th>
                                 <th>Correo</th>
+                                <th>Roles</th>
                                 <th>Fecha de creación</th>
                                 <th>Acciones</th>
                             </tr>
@@ -83,6 +84,13 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->username }}</td>
                                     <td>{{ $user->email }}</td>
+                                    <td>
+                                        @forelse ($user->roles as $role)
+                                            <span class="badge bg-grd-info">{{ $role->name }}</span>
+                                        @empty
+                                            <span class="badge bg-grd-danger">Sin roles</span>
+                                        @endforelse
+                                    </td>
                                     <td>{{ $user->created_at }}</td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-1">

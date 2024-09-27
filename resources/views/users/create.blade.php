@@ -98,6 +98,27 @@
                                     </div>
                                 </div>
 
+                                <div class="row mb-3">
+                                    <label for="name" class="col-sm-3 col-form-label">Roles</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group">
+                                            <!-- Modificación: agregar flex-wrap para que los elementos se envuelvan -->
+                                            <div class="d-flex align-items-center gap-3 flex-wrap">
+
+                                                @foreach ($roles as $id => $role)
+                                                    <div class="form-check form-check-success">
+                                                        <input class="form-check-input" type="checkbox" name="roles[]" value="{{ $id }}" id="flexCheckSuccess{{ $id }}">
+                                                        <label class="form-check-label" for="flexCheckSuccess{{ $id }}">
+                                                            {{ $role }}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <label class="col-sm-3 col-form-label"></label>
                                     <div class="col-sm-9">

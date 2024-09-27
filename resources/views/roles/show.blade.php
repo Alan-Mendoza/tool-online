@@ -80,6 +80,15 @@
                         {{ $role->guard_name }}
                     </li>
                     <li class="list-group-item">
+                        <b>Permisos</b>
+                        <br>
+                        @forelse ($role->permissions as $permission)
+                            <span class="badge bg-grd-info">{{ $permission->name }}</span>
+                        @empty
+                            <span class="badge bg-grd-danger">Sin permisos</span>
+                        @endforelse
+                    </li>
+                    <li class="list-group-item">
                         <b>Fecha de creación</b>
                         <br>
                         {{ $role->created_at }}

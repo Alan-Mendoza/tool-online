@@ -71,6 +71,7 @@
                                 <th>Id</th>
                                 <th>Nombre</th>
                                 <th>Guard</th>
+                                <th>Permisos</th>
                                 <th>Fecha de creación</th>
                                 <th>Acciones</th>
                             </tr>
@@ -81,6 +82,13 @@
                                     <td>{{ $role->id }}</td>
                                     <td>{{ $role->name }}</td>
                                     <td>{{ $role->guard_name }}</td>
+                                    <td>
+                                        @forelse ($role->permissions as $permission)
+                                            <span class="badge bg-grd-info">{{ $permission->name }}</span>
+                                        @empty
+                                            <span class="badge bg-grd-danger">Sin permisos</span>
+                                        @endforelse
+                                    </td>
                                     <td>{{ $role->created_at }}</td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-1">

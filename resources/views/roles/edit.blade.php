@@ -54,6 +54,27 @@
                                     </div>
                                 </div>
 
+                                <div class="row mb-3">
+                                    <label for="name" class="col-sm-3 col-form-label">Permisos</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group">
+                                            <!-- Modificación: agregar flex-wrap para que los elementos se envuelvan -->
+                                            <div class="d-flex align-items-center gap-3 flex-wrap">
+
+                                                @foreach ($permissions as $id => $permission)
+                                                    <div class="form-check form-check-success">
+                                                        <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $id }}" {{ $role->permissions->contains($id) ? 'checked' : '' }} id="flexCheckSuccess{{ $id }}">
+                                                        <label class="form-check-label" for="flexCheckSuccess{{ $id }}">
+                                                            {{ $permission }}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <label class="col-sm-3 col-form-label"></label>
                                     <div class="col-sm-9">

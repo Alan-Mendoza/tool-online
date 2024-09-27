@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -24,7 +25,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('roles.create');
+        return view('roles.create')->with([
+            'permissions' => Permission::all()->pluck('name', 'id'),
+        ]);
     }
 
     /**
@@ -33,6 +36,8 @@ class RoleController extends Controller
     public function store(StoreRoleRequest $request)
     {
         $role = Role::create($request->only('name'));
+
+        $role->permissions()->sync($request->input('permissions', []));
 
         return redirect()->route('roles.index')->with('success', 'Rol creado correctamente');
     }
@@ -43,7 +48,7 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         return view('roles.show')->with([
-            'role' => $role,
+            'role' => $role->load('permissions'),
         ]);
     }
 
@@ -53,7 +58,8 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         return view('roles.edit')->with([
-            'role' => $role,
+            'role' => $role->load('permissions'),
+            'permissions' => Permission::all()->pluck('name', 'id'),
         ]);
     }
 
@@ -63,6 +69,8 @@ class RoleController extends Controller
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $role->update($request->only('name'));
+
+        $role->permissions()->sync($request->input('permissions', []));
 
         return redirect()->route('roles.index')->with('success', 'Rol actualizado correctamente');
     }

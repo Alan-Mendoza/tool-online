@@ -85,6 +85,15 @@
                         {{ $user->email }}
                     </li>
                     <li class="list-group-item">
+                        <b>Roles</b>
+                        <br>
+                        @forelse ($user->roles as $role)
+                            <span class="badge bg-grd-info">{{ $role->name }}</span>
+                        @empty
+                            <span class="badge bg-grd-danger">Sin permisos</span>
+                        @endforelse
+                    </li>
+                    <li class="list-group-item">
                         <b>Fecha de creación</b>
                         <br>
                         {{ $user->created_at }}
