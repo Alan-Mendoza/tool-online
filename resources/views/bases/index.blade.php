@@ -6,19 +6,19 @@
     <div class="main-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Lista de usuarios</div>
+            <div class="breadcrumb-title pe-3">Lista de bases</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('users.index') }}" class="text-white">Usuarios</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('bases.index') }}" class="text-white">Bases</a></li>
                     </ol>
                 </nav>
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('users.create') }}" class="btn btn-primary">Nuevo usuario</a>
+                    <a href="{{ route('bases.create') }}" class="btn btn-primary">Nueva base</a>
                     {{-- <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
@@ -31,7 +31,7 @@
         </div>
         <!--end breadcrumb-->
 
-        <h6 class="mb-0 text-uppercase">Lista de usuarios en sistema</h6>
+        <h6 class="mb-0 text-uppercase">Lista de bases en sistema</h6>
         <hr>
 
         @if(session('success'))
@@ -70,33 +70,29 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Nombre</th>
-                                <th>Usuario</th>
-                                <th>Correo</th>
                                 <th>Fecha de creación</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($bases as $base)
                                 <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->username }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->created_at }}</td>
+                                    <td>{{ $base->id }}</td>
+                                    <td>{{ $base->name }}</td>
+                                    <td>{{ $base->created_at }}</td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-1">
                                             <div class="col">
-                                                <a href="{{ route('users.show', ['user' => $user->id]) }}" class="btn btn-outline-primary d-flex gap-1 button-list"><i class="material-icons-outlined">visibility</i></a>
+                                                <a href="{{ route('bases.show', ['basis' => $base->id]) }}" class="btn btn-outline-primary d-flex gap-1 button-list"><i class="material-icons-outlined">visibility</i></a>
                                             </div>
                                             <div class="col">
-                                                <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-outline-warning d-flex gap-1 button-list"><i class="material-icons-outlined">edit</i></a>
+                                                <a href="{{ route('bases.edit', ['basis' => $base->id]) }}" class="btn btn-outline-warning d-flex gap-1 button-list"><i class="material-icons-outlined">edit</i></a>
                                             </div>
                                             <div class="col">
-                                                <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" id="delete-form-{{ $user->id }}">
+                                                <form action="{{ route('bases.destroy', ['basis' => $base->id]) }}" method="POST" id="delete-form-{{ $base->id }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" class="btn btn-outline-danger d-flex gap-1 button-list" onclick="confirmDelete({{ $user->id }})"><i class="material-icons-outlined">delete</i></button>
+                                                    <button type="button" class="btn btn-outline-danger d-flex gap-1 button-list" onclick="confirmDelete({{ $base->id }})"><i class="material-icons-outlined">delete</i></button>
                                                 </form>
                                             </div>
                                         </div>
@@ -123,7 +119,7 @@
 @section('modal-delete-base')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    function confirmDelete(userId) {
+    function confirmDelete(baseId) {
         Swal.fire({
             title: '¿Estás seguro?',
             text: "¡Esta acción no se puede deshacer!",
@@ -143,14 +139,14 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 // Si el usuario confirma, envía el formulario
-                document.getElementById('delete-form-' + userId).submit();
+                document.getElementById('delete-form-' + baseId).submit();
             }
         });
     }
 </script>
 @endsection
 
-@section('data-table-users')
+@section('data-table-bases')
     <script src="{{ asset('admin/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('admin/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
     <script>

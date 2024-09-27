@@ -1221,7 +1221,13 @@
   </script>
 {{-- Data Tables Inicio--}}
 @yield('data-table-users')
+@yield('data-table-bases')
 {{-- Data Tables Fin--}}
+
+{{-- Modal Delete Inicio --}}
+@yield('modal-delete-user')
+@yield('modal-delete-base')
+{{-- Modal Delete Fin --}}
 
 {{-- Perfect Scrollbar Inicio --}}
 @yield('perfect-scrollbar-user')
