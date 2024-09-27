@@ -6,13 +6,13 @@
     <div class="main-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Crear base</div>
+            <div class="breadcrumb-title pe-3">Crear permiso</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('bases.index') }}" class="text-white">bases</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('permissions.index') }}" class="text-white">Permisos</a></li>
                     </ol>
                 </nav>
             </div>
@@ -36,14 +36,14 @@
                 <div class="card">
                     <div class="card-body p-4">
                         <h5 class="mb-4">Crear nueva base</h5>
-                            <form action="{{ route('bases.store') }}" method="POST">
+                            <form action="{{ route('permissions.store') }}" method="POST">
                                 @csrf
                                 <div class="row mb-3">
                                     <label for="name" class="col-sm-3 col-form-label">Nombre</label>
                                     <div class="col-sm-9">
                                         <div class="input-group">
-                                            <span class="input-group-text"><i class="material-icons-outlined fs-5">circle</i></span>
-                                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="base" autofocus>
+                                            <span class="input-group-text"><i class="material-icons-outlined fs-5">key</i></span>
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="permiso" autofocus>
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -58,7 +58,7 @@
                                     <div class="col-sm-9">
                                         <div class="d-md-flex d-grid align-items-center gap-3">
                                             <button type="submit" class="btn btn-grd-primary px-4">Guardar</button>
-                                            <a href="{{ route('bases.index') }}" class="btn btn-grd-royal px-4">Cancelar</a>
+                                            <a href="{{ route('permissions.index') }}" class="btn btn-grd-royal px-4">Cancelar</a>
                                         </div>
                                     </div>
                                 </div>

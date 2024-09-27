@@ -656,6 +656,20 @@
                 <div class="menu-title">Usuarios</div>
             </a>
         </li>
+        <li class="{{ request()->is('bases*') ? 'mm-active' : '' }}">
+            <a href="{{ route('bases.index') }}">
+                <div class="parent-icon"><i class="material-icons-outlined">circle</i>
+                </div>
+                <div class="menu-title">Bases</div>
+            </a>
+        </li>
+        <li class="{{ request()->is('permissions*') ? 'mm-active' : '' }}">
+            <a href="{{ route('permissions.index') }}">
+                <div class="parent-icon"><i class="material-icons-outlined">key</i>
+                </div>
+                <div class="menu-title">Permisos</div>
+            </a>
+        </li>
         <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="material-icons-outlined">home</i>
@@ -1222,11 +1236,13 @@
 {{-- Data Tables Inicio--}}
 @yield('data-table-users')
 @yield('data-table-bases')
+@yield('data-table-permissions')
 {{-- Data Tables Fin--}}
 
 {{-- Modal Delete Inicio --}}
 @yield('modal-delete-user')
 @yield('modal-delete-base')
+@yield('modal-delete-permission')
 {{-- Modal Delete Fin --}}
 
 {{-- Perfect Scrollbar Inicio --}}
