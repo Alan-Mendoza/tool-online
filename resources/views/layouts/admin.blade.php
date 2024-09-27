@@ -670,6 +670,13 @@
                 <div class="menu-title">Permisos</div>
             </a>
         </li>
+        <li class="{{ request()->is('roles*') ? 'mm-active' : '' }}">
+            <a href="{{ route('roles.index') }}">
+                <div class="parent-icon"><i class="material-icons-outlined">key</i>
+                </div>
+                <div class="menu-title">Roles</div>
+            </a>
+        </li>
         <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="material-icons-outlined">home</i>
@@ -1237,12 +1244,14 @@
 @yield('data-table-users')
 @yield('data-table-bases')
 @yield('data-table-permissions')
+@yield('data-table-roles')
 {{-- Data Tables Fin--}}
 
 {{-- Modal Delete Inicio --}}
 @yield('modal-delete-user')
 @yield('modal-delete-base')
 @yield('modal-delete-permission')
+@yield('modal-delete-role')
 {{-- Modal Delete Fin --}}
 
 {{-- Perfect Scrollbar Inicio --}}
