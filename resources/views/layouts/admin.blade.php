@@ -649,34 +649,42 @@
 <div class="sidebar-nav">
     <!--navigation-->
     <ul class="metismenu" id="sidenav">
-        <li class="{{ request()->is('users*') ? 'mm-active' : '' }}">
-            <a href="{{ route('users.index') }}">
-                <div class="parent-icon"><i class="material-icons-outlined">people</i>
-                </div>
-                <div class="menu-title">Usuarios</div>
-            </a>
-        </li>
-        <li class="{{ request()->is('bases*') ? 'mm-active' : '' }}">
-            <a href="{{ route('bases.index') }}">
-                <div class="parent-icon"><i class="material-icons-outlined">circle</i>
-                </div>
-                <div class="menu-title">Bases</div>
-            </a>
-        </li>
-        <li class="{{ request()->is('permissions*') ? 'mm-active' : '' }}">
-            <a href="{{ route('permissions.index') }}">
-                <div class="parent-icon"><i class="material-icons-outlined">key</i>
-                </div>
-                <div class="menu-title">Permisos</div>
-            </a>
-        </li>
-        <li class="{{ request()->is('roles*') ? 'mm-active' : '' }}">
-            <a href="{{ route('roles.index') }}">
-                <div class="parent-icon"><i class="material-icons-outlined">key</i>
-                </div>
-                <div class="menu-title">Roles</div>
-            </a>
-        </li>
+        @can('user-index')
+            <li class="{{ request()->is('users*') ? 'mm-active' : '' }}">
+                <a href="{{ route('users.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">people</i>
+                    </div>
+                    <div class="menu-title">Usuarios</div>
+                </a>
+            </li>
+        @endcan
+        @can('base-index')
+            <li class="{{ request()->is('bases*') ? 'mm-active' : '' }}">
+                <a href="{{ route('bases.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">circle</i>
+                    </div>
+                    <div class="menu-title">Bases</div>
+                </a>
+            </li>
+        @endcan
+        @can('permission-index')
+            <li class="{{ request()->is('permissions*') ? 'mm-active' : '' }}">
+                <a href="{{ route('permissions.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">key</i>
+                    </div>
+                    <div class="menu-title">Permisos</div>
+                </a>
+            </li>
+        @endcan
+        @can('role-index')
+            <li class="{{ request()->is('roles*') ? 'mm-active' : '' }}">
+                <a href="{{ route('roles.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">key</i>
+                    </div>
+                    <div class="menu-title">Roles</div>
+                </a>
+            </li>
+        @endcan
         <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="material-icons-outlined">home</i>

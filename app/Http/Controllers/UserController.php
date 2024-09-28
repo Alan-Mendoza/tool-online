@@ -6,6 +6,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -13,6 +14,8 @@ class UserController extends Controller
 {
     public function index()
     {
+        abort_if(Gate::denies('user-index'), 403);
+
         return view('users.index')->with([
             'users' => User::all(),
         ]);
@@ -20,6 +23,8 @@ class UserController extends Controller
 
     public function create()
     {
+        abort_if(Gate::denies('user-create'), 403);
+
         return view('users.create')->with([
             'roles' => Role::all()->pluck('name', 'id'),
             'permissions' => Permission::all()->pluck('name', 'id'),
@@ -43,6 +48,8 @@ class UserController extends Controller
 
     public function show(User $user)
     {
+        abort_if(Gate::denies('user-show'), 403);
+
         return view('users.show')->with([
             'user' => $user->load('roles'),
         ]);
@@ -50,6 +57,8 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        abort_if(Gate::denies('user-edit'), 403);
+
         return view('users.edit')->with([
             'user' => $user->load('roles'),
             'roles' => Role::all()->pluck('name', 'id'),
@@ -80,6 +89,8 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        abort_if(Gate::denies('user-destroy'), 403);
+
         if (auth()->user()->id == $user->id) {
             return redirect()->route('users.index')->with('error', 'No puedes eliminarte a ti mismo');
         }

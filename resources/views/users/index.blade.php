@@ -18,7 +18,9 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('users.create') }}" class="btn btn-primary">Nuevo usuario</a>
+                    @can('user-create')
+                        <a href="{{ route('users.create') }}" class="btn btn-primary">Nuevo usuario</a>
+                    @endcan
                     {{-- <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
@@ -102,19 +104,25 @@
                                     <td>{{ $user->created_at }}</td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-1">
-                                            <div class="col">
-                                                <a href="{{ route('users.show', ['user' => $user->id]) }}" class="btn btn-outline-primary d-flex gap-1 button-list"><i class="material-icons-outlined">visibility</i></a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-outline-warning d-flex gap-1 button-list"><i class="material-icons-outlined">edit</i></a>
-                                            </div>
-                                            <div class="col">
-                                                <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" id="delete-form-{{ $user->id }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-outline-danger d-flex gap-1 button-list" onclick="confirmDelete({{ $user->id }})"><i class="material-icons-outlined">delete</i></button>
-                                                </form>
-                                            </div>
+                                            @can('user-show')
+                                                <div class="col">
+                                                    <a href="{{ route('users.show', ['user' => $user->id]) }}" class="btn btn-outline-primary d-flex gap-1 button-list"><i class="material-icons-outlined">visibility</i></a>
+                                                </div>
+                                            @endcan
+                                            @can('user-edit')
+                                                <div class="col">
+                                                    <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-outline-warning d-flex gap-1 button-list"><i class="material-icons-outlined">edit</i></a>
+                                                </div>
+                                            @endcan
+                                            @can('user-destroy')
+                                                <div class="col">
+                                                    <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" id="delete-form-{{ $user->id }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-outline-danger d-flex gap-1 button-list" onclick="confirmDelete({{ $user->id }})"><i class="material-icons-outlined">delete</i></button>
+                                                    </form>
+                                                </div>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

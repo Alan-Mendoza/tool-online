@@ -18,7 +18,9 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('bases.create') }}" class="btn btn-primary">Nueva base</a>
+                    @can('base-create')
+                        <a href="{{ route('bases.create') }}" class="btn btn-primary">Nueva base</a>
+                    @endcan
                     {{-- <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
@@ -82,19 +84,25 @@
                                     <td>{{ $base->created_at }}</td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-1">
-                                            <div class="col">
-                                                <a href="{{ route('bases.show', ['basis' => $base->id]) }}" class="btn btn-outline-primary d-flex gap-1 button-list"><i class="material-icons-outlined">visibility</i></a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{ route('bases.edit', ['basis' => $base->id]) }}" class="btn btn-outline-warning d-flex gap-1 button-list"><i class="material-icons-outlined">edit</i></a>
-                                            </div>
-                                            <div class="col">
-                                                <form action="{{ route('bases.destroy', ['basis' => $base->id]) }}" method="POST" id="delete-form-{{ $base->id }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-outline-danger d-flex gap-1 button-list" onclick="confirmDelete({{ $base->id }})"><i class="material-icons-outlined">delete</i></button>
-                                                </form>
-                                            </div>
+                                            @can('base-show')
+                                                <div class="col">
+                                                    <a href="{{ route('bases.show', ['basis' => $base->id]) }}" class="btn btn-outline-primary d-flex gap-1 button-list"><i class="material-icons-outlined">visibility</i></a>
+                                                </div>
+                                            @endcan
+                                            @can('base-edit')
+                                                <div class="col">
+                                                    <a href="{{ route('bases.edit', ['basis' => $base->id]) }}" class="btn btn-outline-warning d-flex gap-1 button-list"><i class="material-icons-outlined">edit</i></a>
+                                                </div>
+                                            @endcan
+                                            @can('base-destroy')
+                                                <div class="col">
+                                                    <form action="{{ route('bases.destroy', ['basis' => $base->id]) }}" method="POST" id="delete-form-{{ $base->id }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-outline-danger d-flex gap-1 button-list" onclick="confirmDelete({{ $base->id }})"><i class="material-icons-outlined">delete</i></button>
+                                                    </form>
+                                                </div>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

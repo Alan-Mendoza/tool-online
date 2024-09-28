@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Base;
 use App\Http\Requests\StoreBaseRequest;
 use App\Http\Requests\UpdateBaseRequest;
+use Illuminate\Support\Facades\Gate;
 
 class BaseController extends Controller
 {
@@ -13,6 +14,8 @@ class BaseController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('base-index'), 403);
+
         return view('bases.index')->with([
             'bases' => Base::all(),
         ]);
@@ -23,6 +26,8 @@ class BaseController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('base-create'), 403);
+
         return view('bases.create');
     }
 
@@ -41,6 +46,8 @@ class BaseController extends Controller
      */
     public function show(Base $basis)
     {
+        abort_if(Gate::denies('base-show'), 403);
+
         return view('bases.show')->with([
             'base' => $basis,
         ]);
@@ -51,6 +58,8 @@ class BaseController extends Controller
      */
     public function edit(Base $basis)
     {
+        abort_if(Gate::denies('base-edit'), 403);
+
         return view('bases.edit')->with([
             'base' => $basis,
         ]);
@@ -71,6 +80,8 @@ class BaseController extends Controller
      */
     public function destroy(Base $basis)
     {
+        abort_if(Gate::denies('base-destroy'), 403);
+
         $basis->delete();
 
         return redirect()->route('bases.index')->with('success', 'Base eliminada correctamente');

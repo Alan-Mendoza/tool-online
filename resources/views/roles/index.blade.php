@@ -18,7 +18,9 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('roles.create') }}" class="btn btn-primary">Nuevo rol</a>
+                    @can('role-create')
+                        <a href="{{ route('roles.create') }}" class="btn btn-primary">Nuevo rol</a>
+                    @endcan
                     {{-- <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
@@ -92,19 +94,25 @@
                                     <td>{{ $role->created_at }}</td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-1">
-                                            <div class="col">
-                                                <a href="{{ route('roles.show', ['role' => $role->id]) }}" class="btn btn-outline-primary d-flex gap-1 button-list"><i class="material-icons-outlined">visibility</i></a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{ route('roles.edit', ['role' => $role->id]) }}" class="btn btn-outline-warning d-flex gap-1 button-list"><i class="material-icons-outlined">edit</i></a>
-                                            </div>
-                                            <div class="col">
-                                                <form action="{{ route('roles.destroy', ['role' => $role->id]) }}" method="POST" id="delete-form-{{ $role->id }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-outline-danger d-flex gap-1 button-list" onclick="confirmDelete({{ $role->id }})"><i class="material-icons-outlined">delete</i></button>
-                                                </form>
-                                            </div>
+                                            @can('role-show')
+                                                <div class="col">
+                                                    <a href="{{ route('roles.show', ['role' => $role->id]) }}" class="btn btn-outline-primary d-flex gap-1 button-list"><i class="material-icons-outlined">visibility</i></a>
+                                                </div>
+                                            @endcan
+                                            @can('role-edit')
+                                                <div class="col">
+                                                    <a href="{{ route('roles.edit', ['role' => $role->id]) }}" class="btn btn-outline-warning d-flex gap-1 button-list"><i class="material-icons-outlined">edit</i></a>
+                                                </div>
+                                            @endcan
+                                            @can('role-destroy')
+                                                <div class="col">
+                                                    <form action="{{ route('roles.destroy', ['role' => $role->id]) }}" method="POST" id="delete-form-{{ $role->id }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-outline-danger d-flex gap-1 button-list" onclick="confirmDelete({{ $role->id }})"><i class="material-icons-outlined">delete</i></button>
+                                                    </form>
+                                                </div>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

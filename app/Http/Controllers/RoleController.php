@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -15,6 +16,8 @@ class RoleController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('role-index'), 403);
+
         return view('roles.index')->with([
             'roles' => Role::all(),
         ]);
@@ -25,6 +28,8 @@ class RoleController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('role-create'), 403);
+
         return view('roles.create')->with([
             'permissions' => Permission::all()->pluck('name', 'id'),
         ]);
@@ -47,6 +52,8 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
+        abort_if(Gate::denies('role-show'), 403);
+
         return view('roles.show')->with([
             'role' => $role->load('permissions'),
         ]);
@@ -57,6 +64,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        abort_if(Gate::denies('role-edit'), 403);
+
         return view('roles.edit')->with([
             'role' => $role->load('permissions'),
             'permissions' => Permission::all()->pluck('name', 'id'),
@@ -80,6 +89,8 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
+        abort_if(Gate::denies('role-destroy'), 403);
+
         $role->delete();
 
         return redirect()->route('roles.index')->with('success', 'Rol eliminado correctamente');

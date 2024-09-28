@@ -18,7 +18,9 @@
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('permissions.create') }}" class="btn btn-primary">Nuevo permiso</a>
+                    @can('permission-create')
+                        <a href="{{ route('permissions.create') }}" class="btn btn-primary">Nuevo permiso</a>
+                    @endcan
                     {{-- <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
@@ -84,19 +86,25 @@
                                     <td>{{ $permission->created_at }}</td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-1">
-                                            <div class="col">
-                                                <a href="{{ route('permissions.show', ['permission' => $permission->id]) }}" class="btn btn-outline-primary d-flex gap-1 button-list"><i class="material-icons-outlined">visibility</i></a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="{{ route('permissions.edit', ['permission' => $permission->id]) }}" class="btn btn-outline-warning d-flex gap-1 button-list"><i class="material-icons-outlined">edit</i></a>
-                                            </div>
-                                            <div class="col">
-                                                <form action="{{ route('permissions.destroy', ['permission' => $permission->id]) }}" method="POST" id="delete-form-{{ $permission->id }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-outline-danger d-flex gap-1 button-list" onclick="confirmDelete({{ $permission->id }})"><i class="material-icons-outlined">delete</i></button>
-                                                </form>
-                                            </div>
+                                            @can('permission-show')
+                                                <div class="col">
+                                                    <a href="{{ route('permissions.show', ['permission' => $permission->id]) }}" class="btn btn-outline-primary d-flex gap-1 button-list"><i class="material-icons-outlined">visibility</i></a>
+                                                </div>
+                                            @endcan
+                                            @can('permission-edit')
+                                                <div class="col">
+                                                    <a href="{{ route('permissions.edit', ['permission' => $permission->id]) }}" class="btn btn-outline-warning d-flex gap-1 button-list"><i class="material-icons-outlined">edit</i></a>
+                                                </div>
+                                            @endcan
+                                            @can('permission-destroy')
+                                                <div class="col">
+                                                    <form action="{{ route('permissions.destroy', ['permission' => $permission->id]) }}" method="POST" id="delete-form-{{ $permission->id }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-outline-danger d-flex gap-1 button-list" onclick="confirmDelete({{ $permission->id }})"><i class="material-icons-outlined">delete</i></button>
+                                                    </form>
+                                                </div>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
